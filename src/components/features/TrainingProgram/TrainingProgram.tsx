@@ -14,7 +14,6 @@ export function TrainingProgram(): JSX.Element {
                 key={index}
                 title={exerciseName}
                 description="Вес: 50кг, повторений: 10, подходов: 4"
-                onClick={() => alert('Погнали!')}
               />
             ))}
           </List>

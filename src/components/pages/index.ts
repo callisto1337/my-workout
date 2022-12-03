@@ -1,1 +1,2 @@
-export * from './TrainingPage';
+export * from './TrainingProgramPage';
+export * from './ExercisePage';
