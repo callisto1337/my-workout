@@ -1,22 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BaseTemplate } from 'components/templates';
 import { TrainingPage, ExercisePage } from 'components/pages';
 import React from 'react';
 
 export const router = createBrowserRouter([
   {
+    path: '/exercise',
+    element: <ExercisePage />,
+  },
+  {
     path: '/',
-    element: <BaseTemplate />,
-    children: [
-      {
-        path: '',
-        element: <TrainingPage />,
-      },
-      {
-        path: 'exercise',
-        element: <ExercisePage />,
-      },
-    ],
+    element: <TrainingPage />,
   },
   {
     path: '*',
