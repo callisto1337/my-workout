@@ -10,9 +10,11 @@ export function MainTemplate(props: MainTemplateProps): JSX.Element {
   const { children } = props;
 
   return (
-    <Box>
+    <Box sx={{ pb: 7 }}>
       {children}
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+      <Paper
+        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 2 }}
+      >
         <Navigation />
       </Paper>
     </Box>
