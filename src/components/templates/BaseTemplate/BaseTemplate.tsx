@@ -6,7 +6,7 @@ interface MainTemplateProps {
   children?: React.ReactNode;
 }
 
-export function MainTemplate(props: MainTemplateProps): JSX.Element {
+export function BaseTemplate(props: MainTemplateProps): JSX.Element {
   const { children } = props;
 
   return (

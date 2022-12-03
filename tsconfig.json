@@ -4,7 +4,8 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "components/*": ["./src/components/*"]
+      "components/*": ["./src/components/*"],
+      "router": ["./src/router"]
     }
   }
 }

@@ -1,1 +1,1 @@
-export * from './MainTemplate';
+export * from './BaseTemplate';
