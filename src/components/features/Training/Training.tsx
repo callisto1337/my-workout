@@ -3,7 +3,7 @@ import { List, ListSubheader, Divider } from '@mui/material';
 import { TrainingListItem } from './components';
 import { trainingProgram } from './constants';
 
-export function TrainingProgram(): JSX.Element {
+export function Training(): JSX.Element {
   return (
     <>
       {trainingProgram.map(({ groupName, exercises }) => (

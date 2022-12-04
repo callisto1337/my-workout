@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { Navigation } from 'components/features';
-import { ContentWrapper } from './components/ContentWrapper';
+import { BaseTemplateContent } from './components/Content';
 
 interface BaseTemplateProps {
   title?: string;
@@ -28,4 +28,4 @@ export function BaseTemplate(props: BaseTemplateProps): JSX.Element {
   );
 }
 
-BaseTemplate.ContentWrapper = ContentWrapper;
+BaseTemplate.Content = BaseTemplateContent;

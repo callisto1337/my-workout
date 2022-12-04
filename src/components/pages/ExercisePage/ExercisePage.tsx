@@ -5,7 +5,7 @@ import { Box, TextField, Grid, Button } from '@mui/material';
 export function ExercisePage(): JSX.Element {
   return (
     <BaseTemplate title="Редактировать">
-      <BaseTemplate.ContentWrapper>
+      <BaseTemplate.Content>
         <Box component="form">
           <Grid container spacing={2}>
             <Grid item width="33.3%">
@@ -27,7 +27,7 @@ export function ExercisePage(): JSX.Element {
             </Grid>
           </Grid>
         </Box>
-      </BaseTemplate.ContentWrapper>
+      </BaseTemplate.Content>
     </BaseTemplate>
   );
 }

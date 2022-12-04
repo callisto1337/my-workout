@@ -5,7 +5,7 @@ interface ContentWrapperProps {
   children?: React.ReactNode;
 }
 
-export function ContentWrapper(props: ContentWrapperProps): JSX.Element {
+export function BaseTemplateContent(props: ContentWrapperProps): JSX.Element {
   const { children } = props;
 
   return <Box sx={{ px: 2 }}>{children}</Box>;

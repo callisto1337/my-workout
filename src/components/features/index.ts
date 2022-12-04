@@ -1,2 +1,2 @@
-export * from './TrainingProgram';
+export * from './Training';
 export * from './Navigation';

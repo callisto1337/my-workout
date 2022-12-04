@@ -1,1 +1,0 @@
-export { TrainingListItem } from './TrainingListItem';
