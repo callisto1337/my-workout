@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, Divider } from '@mui/material';
 import { Navigation } from 'components/features';
 import { BaseTemplateContent } from './components/Content';
 import {
@@ -19,9 +19,12 @@ export function BaseTemplate(props: BaseTemplateProps): JSX.Element {
   return (
     <Box sx={containerStyles}>
       {title && (
-        <Typography variant="h4" sx={titleStyles}>
-          {title}
-        </Typography>
+        <>
+          <Typography variant="h4" sx={titleStyles}>
+            {title}
+          </Typography>
+          <Divider />
+        </>
       )}
       {children}
       <Paper sx={navContainerStyles}>

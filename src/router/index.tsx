@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { TrainingPage, ExercisePage, AuthPage } from 'components/pages';
+import { TrainingPage, ExercisePage, AuthPage, SettingsPage } from 'components/pages';
 import { App } from 'components/common';
 import { ROUTES } from 'utils/constants';
 
@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.EXERCISE,
         element: <ExercisePage />,
+      },
+      {
+        path: ROUTES.SETTINGS,
+        element: <SettingsPage />,
       },
       {
         path: ROUTES.MAIN,

@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import {
   Button,
-  Box,
   DialogTitle,
-  DialogContent,
-  DialogActions,
   Dialog,
+  DialogActions,
+  DialogContent,
   Typography,
 } from '@mui/material';
-import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
-import GoogleIcon from '@mui/icons-material/Google';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { BaseTemplate } from 'components/templates';
 import { auth } from 'services/firebase';
-import { containerStyles } from './AuthPage.styles';
+import { ROUTES } from 'utils/constants';
 
-const provider = new GoogleAuthProvider();
-
-export function AuthPage(): JSX.Element {
+export function SettingsPage(): JSX.Element {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>();
+  const navigate = useNavigate();
 
   function onCloseModal() {
     setShowErrorModal(false);
   }
 
-  function signInHandler() {
+  function onClickHandler() {
     setLoading(true);
     setError(null);
 
-    signInWithRedirect(auth, provider)
+    signOut(auth)
+      .then(() => {
+        navigate(ROUTES.AUTH);
+      })
       .catch((error) => {
         setError(error.message);
         setShowErrorModal(true);
@@ -40,17 +42,18 @@ export function AuthPage(): JSX.Element {
 
   return (
     <>
-      <Box sx={containerStyles}>
-        <Button
-          size="large"
-          disabled={loading}
-          variant="contained"
-          endIcon={<GoogleIcon />}
-          onClick={signInHandler}
-        >
-          Войти
-        </Button>
-      </Box>
+      <BaseTemplate title="Настройки">
+        <BaseTemplate.Content>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={onClickHandler}
+            disabled={loading}
+          >
+            Выйти
+          </Button>
+        </BaseTemplate.Content>
+      </BaseTemplate>
       <Dialog open={showErrorModal} onClose={onCloseModal}>
         <DialogTitle>Произошла ошибка</DialogTitle>
         <DialogContent>
