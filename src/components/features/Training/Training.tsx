@@ -6,8 +6,8 @@ import { trainingProgram } from './constants';
 export function Training(): JSX.Element {
   return (
     <>
-      {trainingProgram.map(({ groupName, exercises }) => (
-        <>
+      {trainingProgram.map(({ groupName, exercises }, index) => (
+        <React.Fragment key={index}>
           <List subheader={<ListSubheader>{groupName}</ListSubheader>}>
             {exercises.map(({ exerciseName }, index) => (
               <TrainingListItem
@@ -18,7 +18,7 @@ export function Training(): JSX.Element {
             ))}
           </List>
           <Divider />
-        </>
+        </React.Fragment>
       ))}
     </>
   );

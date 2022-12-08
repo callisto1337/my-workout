@@ -2,6 +2,11 @@ import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { Navigation } from 'components/features';
 import { BaseTemplateContent } from './components/Content';
+import {
+  containerStyles,
+  titleStyles,
+  navContainerStyles,
+} from './BaseTemplate.styles';
 
 interface BaseTemplateProps {
   title?: string;
@@ -12,16 +17,14 @@ export function BaseTemplate(props: BaseTemplateProps): JSX.Element {
   const { title, children } = props;
 
   return (
-    <Box sx={{ pb: 7 }}>
+    <Box sx={containerStyles}>
       {title && (
-        <Typography variant="h4" sx={{ m: 2 }}>
+        <Typography variant="h4" sx={titleStyles}>
           {title}
         </Typography>
       )}
       {children}
-      <Paper
-        sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 2 }}
-      >
+      <Paper sx={navContainerStyles}>
         <Navigation />
       </Paper>
     </Box>

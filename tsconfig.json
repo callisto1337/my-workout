@@ -3,9 +3,18 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "baseUrl": ".",
+    "strict": true,
+    "strictNullChecks": false,
     "paths": {
       "components/*": ["./src/components/*"],
-      "router": ["./src/router"]
+      "router": ["./src/router"],
+      "storage": ["./src/storage"],
+      "state": ["./src/state"],
+      "hocs": ["./src/hocs"],
+      "hooks": ["./src/hooks"],
+      "utils/*": ["./src/utils/*"],
+      "services/*": ["./src/services/*"]
     }
-  }
+  },
+  "include": ["src/**/*"]
 }
