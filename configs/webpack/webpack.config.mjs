@@ -4,6 +4,7 @@ import plugins from './plugins/index.mjs';
 import module from './module/index.mjs';
 import resolve from './resolve/index.mjs';
 import devServer from './devServer/index.mjs';
+import output from './output/index.mjs';
 
 const { NODE_ENV } = process.env;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,4 +17,5 @@ export default {
   module,
   resolve,
   devServer,
+  output,
 };
