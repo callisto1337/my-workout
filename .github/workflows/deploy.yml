@@ -26,6 +26,9 @@ jobs:
         envkey_PUBLIC_PATH: /my-training
         file_name: .env
     
+    - name: Test .env
+      run: echo ${{ secrets.API_KEY }}
+    
     - name: User Node.JS
       uses: actions/setup-node@v3
       with:
