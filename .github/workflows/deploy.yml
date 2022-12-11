@@ -14,22 +14,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
-    - name: Print name
-      run: echo "Hello $NAME. $BUILD. Using Java Version $JAVA_VERSION. My API_KEY is ${{ secrets.API_KEY }}"
-      env:
-        BUILD: 'We are currently running the Build job'
-       
-    - name: Make .env
-      uses: SpicyPizza/create-envfile@v1.3
-      with:
-        envkey_API_KEY: ${{ secrets.API_KEY }}
-        envkey_PUBLIC_PATH: /my-training
-        fail_on_empty: true
-        
+
     - name: Test .env
       run: cat ${{ github.workspace }}/.env
-    
+
     - name: User Node.JS
       uses: actions/setup-node@v3
       with:
@@ -39,23 +27,23 @@ jobs:
       run: |
         npm install
         npm run build
-        
+
     - name: Upload GitHub Pages artifact
       uses: actions/upload-pages-artifact@v1.0.6
       with:
         path: ${{ github.workspace }}/dist
-        
+
   deploy:
     needs: build
-    
+
     permissions:
       pages: write
       id-token: write
-      
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      
+
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
