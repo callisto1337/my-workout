@@ -27,7 +27,7 @@ jobs:
         file_name: .env
     
     - name: Test .env
-      run: echo ${{ secrets.API_KEY }}
+      run: cat ${{ github.workspace }}/.env
     
     - name: User Node.JS
       uses: actions/setup-node@v3
