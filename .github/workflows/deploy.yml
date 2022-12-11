@@ -23,6 +23,11 @@ jobs:
     
     - name: Test .env
       run: cat ${{ github.workspace }}/.env
+      
+    - name: Print name
+      run: echo "Hello $NAME. $BUILD. Using Java Version $JAVA_VERSION. My API_KEY is ${{secrets.API_KEY}}"
+      env:
+        BUILD: 'We are currently running the Build job'
     
     - name: User Node.JS
       uses: actions/setup-node@v3
