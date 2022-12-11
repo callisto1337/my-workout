@@ -28,7 +28,7 @@ jobs:
         fail_on_empty: true
 
     - name: Test .env
-      run: cat ${{ github.workspace }}/.env
+      run: cat ${{ github.workspace }}/.env.production
 
     - name: User Node.JS
       uses: actions/setup-node@v3
