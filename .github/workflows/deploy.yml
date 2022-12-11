@@ -13,6 +13,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      
+    - name: Print name
+      run: echo "Hello $NAME. $BUILD. Using Java Version $JAVA_VERSION. My API_KEY is ${{ secrets.API_KEY }}"
+      env:
+        BUILD: 'We are currently running the Build job'
        
     - name: Make .env
       uses: SpicyPizza/create-envfile@v1.3
@@ -20,14 +25,9 @@ jobs:
         envkey_API_KEY: ${{ secrets.API_KEY }}
         envkey_PUBLIC_PATH: /my-training
         fail_on_empty: true
-    
+        
     - name: Test .env
       run: cat ${{ github.workspace }}/.env
-      
-    - name: Print name
-      run: echo "Hello $NAME. $BUILD. Using Java Version $JAVA_VERSION. My API_KEY is ${{secrets.API_KEY}}"
-      env:
-        BUILD: 'We are currently running the Build job'
     
     - name: User Node.JS
       uses: actions/setup-node@v3
