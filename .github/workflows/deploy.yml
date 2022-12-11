@@ -17,7 +17,7 @@ jobs:
     - name: Make .env
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        API_KEY: ${{ secrets.API_KEY }}
+        API_KEY: ${{ env.API_KEY }}
         envkey_AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
         envkey_PROJECT_ID: ${{ secrets.PROJECT_ID }}
         envkey_STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
