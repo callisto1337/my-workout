@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ROUTES } from 'utils/constants';
 
@@ -19,10 +20,17 @@ export function Navigation(): JSX.Element {
     >
       <BottomNavigationAction
         component={Link}
-        to={ROUTES.MAIN}
-        value={ROUTES.MAIN}
+        to={ROUTES.WORKOUT}
+        value={ROUTES.WORKOUT}
         label="Тренировка"
         icon={<FitnessCenterIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to={ROUTES.WORKOUT_PLANS}
+        value={ROUTES.WORKOUT_PLANS}
+        label="Программы"
+        icon={<FormatListBulletedIcon />}
       />
       <BottomNavigationAction
         component={Link}

@@ -17,9 +17,11 @@ export function useAuthRedirect() {
     }
 
     if (isNil(user)) {
-      navigate(ROUTES.AUTH);
-    } else if (location.pathname === '/auth') {
-      navigate(ROUTES.MAIN);
+      if (location.pathname !== ROUTES.AUTH) {
+        navigate(ROUTES.AUTH);
+      }
+    } else if (location.pathname === ROUTES.AUTH) {
+      navigate(ROUTES.WORKOUT);
     }
   }, [appLoading]);
 }

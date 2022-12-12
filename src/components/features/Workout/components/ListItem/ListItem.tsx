@@ -9,7 +9,7 @@ interface TrainingListItemProps {
   description?: string;
 }
 
-export function TrainingListItem(props: TrainingListItemProps): JSX.Element {
+export function WorkoutListItem(props: TrainingListItemProps): JSX.Element {
   const { title, description, onClick } = props;
 
   return (

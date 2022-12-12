@@ -1,4 +1,4 @@
-export const trainingProgram = [
+export const workout = [
   {
     groupName: 'Грудь/бицепс',
     exercises: [

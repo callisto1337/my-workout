@@ -1,10 +1,11 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import {
-  TrainingPage,
+  WorkoutPage,
   ExercisePage,
   AuthPage,
   SettingsPage,
+  WorkoutPlansPage,
 } from 'components/pages';
 import { App } from 'components/common';
 import { ROUTES } from 'utils/constants';
@@ -29,8 +30,12 @@ export const router = createBrowserRouter(
           element: <SettingsPage />,
         },
         {
-          path: ROUTES.MAIN,
-          element: <TrainingPage />,
+          path: ROUTES.WORKOUT,
+          element: <WorkoutPage />,
+        },
+        {
+          path: ROUTES.WORKOUT_PLANS,
+          element: <WorkoutPlansPage />,
         },
         {
           path: ROUTES.ANY,
