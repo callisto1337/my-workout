@@ -3,7 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import cloneDeep from 'lodash/cloneDeep';
 import { appLoadingState, userState } from 'state';
-import { AppLoading } from 'components/common';
+import { AppLoader } from 'components/common';
 import { auth } from 'services/firebase';
 
 export function withAuth<P>(Component: ComponentType<P>): ComponentType<P> {
@@ -19,7 +19,7 @@ export function withAuth<P>(Component: ComponentType<P>): ComponentType<P> {
     }, []);
 
     if (appLoading) {
-      return <AppLoading />;
+      return <AppLoader />;
     }
 
     return <Component {...props} />;

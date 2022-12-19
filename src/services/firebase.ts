@@ -1,5 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -13,3 +14,5 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 export const auth = getAuth(firebaseApp);
+
+export const db = getDatabase();

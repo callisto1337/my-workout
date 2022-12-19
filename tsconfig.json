@@ -12,6 +12,7 @@
       "state": ["./src/state"],
       "hocs": ["./src/hocs"],
       "hooks": ["./src/hooks"],
+      "types": ["./src/types"],
       "utils/*": ["./src/utils/*"],
       "services/*": ["./src/services/*"]
     }

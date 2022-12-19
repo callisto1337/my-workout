@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogActions,
   Dialog,
-  Typography,
+  DialogContentText,
 } from '@mui/material';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -54,8 +54,8 @@ export function Auth(): JSX.Element {
       <Dialog open={showErrorModal} onClose={onCloseModal}>
         <DialogTitle>Произошла ошибка</DialogTitle>
         <DialogContent>
-          <Typography>Попробуйте повторить попытку</Typography>
-          <Typography>{error}</Typography>
+          <DialogContentText>Попробуйте повторить попытку</DialogContentText>
+          <DialogContentText>{error}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={onCloseModal} autoFocus>

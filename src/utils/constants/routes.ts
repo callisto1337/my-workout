@@ -1,5 +1,5 @@
 export const ROUTES = {
-  WORKOUT: '/workout',
+  WORKOUT: '/',
   AUTH: '/auth',
   EXERCISE: '/exercise',
   SETTINGS: '/settings',
