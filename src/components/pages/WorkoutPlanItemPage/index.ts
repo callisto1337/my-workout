@@ -1,0 +1,1 @@
+export { WorkoutPlanItemPage } from './WorkoutPlanItemPage';

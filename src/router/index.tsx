@@ -1,11 +1,13 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import urlJoin from 'url-join';
 import {
   WorkoutPage,
   ExercisePage,
   AuthPage,
   SettingsPage,
   WorkoutPlansPage,
+  WorkoutPlanItemPage,
 } from 'components/pages';
 import { App } from 'components/common';
 import { ROUTES } from 'utils/constants';
@@ -36,6 +38,10 @@ export const router = createBrowserRouter(
         {
           path: ROUTES.WORKOUT_PLANS,
           element: <WorkoutPlansPage />,
+        },
+        {
+          path: urlJoin(ROUTES.WORKOUT_PLANS, ':id'),
+          element: <WorkoutPlanItemPage />,
         },
         {
           path: ROUTES.ANY,

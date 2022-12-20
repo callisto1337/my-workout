@@ -49,6 +49,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
     "react-router-dom": "^6.4.4",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.6",
+    "url-join": "^5.0.0"
   }
 }

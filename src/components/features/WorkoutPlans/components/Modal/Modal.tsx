@@ -30,7 +30,7 @@ export function WorkoutPlansModal(props: WorkoutPlansModalProps): JSX.Element {
       workoutPlanName: '',
     },
   });
-  const onSubmit: SubmitHandler<IFormInputs> = ({ workoutPlanName }) => {
+  function onSubmit({ workoutPlanName }: IFormInputs): void {
     const workoutPlanRef = ref(db, SNAPSHOT_PATHS.WORKOUT_PLANS);
     const newWorkoutPlanRef = push(workoutPlanRef);
 
@@ -44,7 +44,7 @@ export function WorkoutPlansModal(props: WorkoutPlansModalProps): JSX.Element {
       .catch((error) => {
         console.error(error);
       });
-  };
+  }
 
   return (
     <Dialog open={open} onClose={closeModal}>

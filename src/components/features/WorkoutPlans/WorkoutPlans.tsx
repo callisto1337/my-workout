@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
+import urlJoin from 'url-join';
 import {
   List,
   Box,
@@ -7,17 +8,19 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material';
-import toArray from 'lodash/toArray';
-import { child, get, ref } from 'firebase/database';
+import isNil from 'lodash/isNil';
+import { child, get, DataSnapshot } from 'firebase/database';
 import { WorkoutPlansModal } from './components';
+import { RouterLink } from 'components/common';
 import { WorkoutPlan } from 'types';
-import { db } from 'services/firebase';
-import { SNAPSHOT_PATHS } from 'utils/constants';
+import { dbRef } from 'services/firebase';
+import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
 import { buttonWrapperStyles } from './WorkoutPlans.styles';
 
 export function WorkoutPlans(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [workoutPlans, setWorkoutPlans] = useState<WorkoutPlan[]>();
+  const [workoutPlans, setWorkoutPlans] =
+    useState<Record<keyof DataSnapshot, WorkoutPlan>>();
   const [isLoading, setIsLoading] = useState<boolean>();
 
   function closeModal() {
@@ -31,14 +34,10 @@ export function WorkoutPlans(): JSX.Element {
   function fetchWorkoutPlans(): void {
     setIsLoading(true);
 
-    const dbRef = ref(db);
-
     get(child(dbRef, SNAPSHOT_PATHS.WORKOUT_PLANS))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          setWorkoutPlans(toArray(snapshot.val()));
-        } else {
-          setWorkoutPlans([]);
+          setWorkoutPlans(snapshot.val());
         }
       })
       .catch((error) => {
@@ -55,13 +54,15 @@ export function WorkoutPlans(): JSX.Element {
   }, []);
 
   function renderWorkoutPlans(): JSX.Element {
-    if (workoutPlans?.length) {
+    if (!isNil(workoutPlans)) {
+      const ids = Object.keys(workoutPlans) as (keyof DataSnapshot)[];
+
       return (
         <List>
-          {workoutPlans.map((plan, index) => (
-            <ListItem key={index} button>
-              {plan.name}
-            </ListItem>
+          {ids.map((id) => (
+            <RouterLink key={id} to={urlJoin(ROUTES.WORKOUT_PLANS, id)}>
+              <ListItem button>{workoutPlans[id]?.name}</ListItem>
+            </RouterLink>
           ))}
         </List>
       );
