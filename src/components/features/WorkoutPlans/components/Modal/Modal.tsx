@@ -34,6 +34,7 @@ export function WorkoutPlansModal(props: WorkoutPlansModalProps): JSX.Element {
     const workoutPlanRef = ref(db, SNAPSHOT_PATHS.WORKOUT_PLANS);
     const newWorkoutPlanRef = push(workoutPlanRef);
 
+    // TODO need finalize
     set(newWorkoutPlanRef, {
       name: workoutPlanName,
     })

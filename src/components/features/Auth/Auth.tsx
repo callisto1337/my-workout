@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Box,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Dialog,
-  DialogContentText,
-} from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import GoogleIcon from '@mui/icons-material/Google';
 import { auth } from 'services/firebase';
+import { ModalRequestError } from 'components/common';
 import { containerStyles } from './Auth.styles';
 
 const provider = new GoogleAuthProvider();
 
 export function Auth(): JSX.Element {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
-  const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>();
 
   function onCloseModal() {
@@ -26,11 +18,9 @@ export function Auth(): JSX.Element {
 
   function signInHandler() {
     setLoading(true);
-    setError(null);
 
     signInWithRedirect(auth, provider)
-      .catch((error) => {
-        setError(error.message);
+      .catch(() => {
         setShowErrorModal(true);
       })
       .finally(() => {
@@ -51,18 +41,7 @@ export function Auth(): JSX.Element {
           Войти
         </Button>
       </Box>
-      <Dialog open={showErrorModal} onClose={onCloseModal}>
-        <DialogTitle>Произошла ошибка</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Попробуйте повторить попытку</DialogContentText>
-          <DialogContentText>{error}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onCloseModal} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ModalRequestError open={showErrorModal} onClose={onCloseModal} />
     </>
   );
 }
