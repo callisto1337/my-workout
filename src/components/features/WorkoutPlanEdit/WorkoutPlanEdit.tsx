@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import urlJoin from 'url-join';
-import { child, get, update } from 'firebase/database';
+import { child, get, update, set } from 'firebase/database';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
 import { ModalRequestError } from 'components/common';
@@ -15,11 +15,12 @@ export function WorkoutPlanEdit(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>();
   const navigate = useNavigate();
   const { id } = useParams();
+  const workoutPlanPath = urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id);
 
   function getWorkoutPlan() {
     setLoading(true);
 
-    get(child(dbRef, urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id)))
+    get(child(dbRef, workoutPlanPath))
       .then((snapshot) => {
         if (snapshot.exists()) {
           setWorkoutPlan(snapshot.val());
@@ -45,6 +46,12 @@ export function WorkoutPlanEdit(): JSX.Element {
       });
   }
 
+  function removeWorkoutPlan() {
+    return set(dbRef, workoutPlanPath).then(() => {
+      navigate(ROUTES.WORKOUT_PLANS);
+    });
+  }
+
   function onCloseModal() {
     setShowModal(false);
   }
@@ -59,7 +66,11 @@ export function WorkoutPlanEdit(): JSX.Element {
 
   return (
     <>
-      <WorkoutPlanForm name={workoutPlan?.name} onSave={updateWorkoutPlan} />
+      <WorkoutPlanForm
+        name={workoutPlan?.name}
+        onSubmit={updateWorkoutPlan}
+        onRemove={removeWorkoutPlan}
+      />
       <ModalRequestError open={showModal} onClose={onCloseModal} />
     </>
   );
