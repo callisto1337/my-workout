@@ -36,7 +36,7 @@ export function WorkoutPlanEdit(): JSX.Element {
 
   function updateWorkoutPlan(data: WorkoutPlan) {
     return update(dbRef, {
-      [urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id)]: data,
+      [workoutPlanPath]: data,
     })
       .then(() => {
         navigate(ROUTES.WORKOUT_PLANS);
@@ -47,9 +47,19 @@ export function WorkoutPlanEdit(): JSX.Element {
   }
 
   function removeWorkoutPlan() {
-    return set(dbRef, workoutPlanPath).then(() => {
-      navigate(ROUTES.WORKOUT_PLANS);
-    });
+    return get(child(dbRef, SNAPSHOT_PATHS.WORKOUT_PLANS))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+
+          delete data[id];
+
+          return set(dbRef, { [SNAPSHOT_PATHS.WORKOUT_PLANS]: data });
+        }
+      })
+      .then(() => {
+        navigate(ROUTES.WORKOUT_PLANS);
+      });
   }
 
   function onCloseModal() {
