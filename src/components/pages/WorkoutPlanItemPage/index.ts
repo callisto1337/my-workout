@@ -1,1 +1,1 @@
-export { WorkoutPlanItemPage } from './WorkoutPlanItemPage';
+export { WorkoutPlanEditPage } from './WorkoutPlanEditPage';

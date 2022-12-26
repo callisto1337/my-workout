@@ -15,3 +15,7 @@ export const navContainerStyles: SxProps = {
   right: 0,
   zIndex: 2,
 };
+
+export const breadcrumbsStyles: SxProps = {
+  p: 2,
+};

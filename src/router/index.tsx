@@ -7,7 +7,7 @@ import {
   AuthPage,
   SettingsPage,
   WorkoutPlansPage,
-  WorkoutPlanItemPage,
+  WorkoutPlanEditPage,
 } from 'components/pages';
 import { App } from 'components/common';
 import { ROUTES } from 'utils/constants';
@@ -41,7 +41,7 @@ export const router = createBrowserRouter(
         },
         {
           path: urlJoin(ROUTES.WORKOUT_PLANS, ':id'),
-          element: <WorkoutPlanItemPage />,
+          element: <WorkoutPlanEditPage />,
         },
         {
           path: ROUTES.ANY,
