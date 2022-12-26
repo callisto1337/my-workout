@@ -4,7 +4,7 @@ import { WorkoutPlanEdit } from 'components/features';
 
 export function WorkoutPlanItemPage(): JSX.Element {
   return (
-    <BaseTemplate title="Редактировать программу">
+    <BaseTemplate title="Редактирование программы">
       <BaseTemplate.Content>
         <WorkoutPlanEdit />
       </BaseTemplate.Content>
