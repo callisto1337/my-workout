@@ -23,16 +23,12 @@ export function Breadcrumbs(props: BreadcrumbsProps): JSX.Element {
     <MUIBreadcrumbs sx={sx}>
       {items?.map(({ to, active, children }, index) => {
         if (active) {
-          return (
-            <Typography sx={breadcrumbItemStyles} key={index}>
-              {children}
-            </Typography>
-          );
+          return <Typography key={index}>{children}</Typography>;
         }
 
         return (
           <RouterLink to={to} key={index}>
-            {children}
+            <Typography sx={breadcrumbItemStyles}>{children}</Typography>
           </RouterLink>
         );
       })}
