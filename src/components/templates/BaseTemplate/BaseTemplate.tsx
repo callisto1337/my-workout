@@ -23,7 +23,7 @@ export function BaseTemplate(props: BaseTemplateProps): JSX.Element {
     <Box sx={containerStyles}>
       {title && (
         <>
-          <Typography variant="h4" sx={titleStyles}>
+          <Typography variant="h5" sx={titleStyles}>
             {title}
           </Typography>
           <Divider />
