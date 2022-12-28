@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button, Divider, FormControl } from '@mui/material';
 import { WorkoutPlan } from 'types';
 import { Controller, useForm } from 'react-hook-form';
 import { FORM_ERRORS } from 'utils/constants';
 import { ModalConfirm } from 'components/common/ModalConfirm';
-import { actionsStyles } from './WorkoutPlanForm.styles';
+import { formStyles } from './WorkoutPlanForm.styles';
 
 interface WorkoutPlanItemProps {
   name?: string;
@@ -49,7 +49,7 @@ export function WorkoutPlanForm(props: WorkoutPlanItemProps): JSX.Element {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <FormControl onSubmit={handleSubmit(onSubmitHandler)} sx={formStyles}>
         <Grid container spacing={3}>
           <Grid item width="100%">
             <Controller
@@ -71,29 +71,41 @@ export function WorkoutPlanForm(props: WorkoutPlanItemProps): JSX.Element {
               }}
             />
           </Grid>
+          {/*<Grid item width="100%">*/}
+          {/*  <Button fullWidth>Добавить упражнение</Button>*/}
+          {/*</Grid>*/}
+          {/*<Grid item width="100%">*/}
+          {/*  <Divider />*/}
+          {/*</Grid>*/}
           <Grid item width="100%">
-            <Grid container spacing={2} sx={actionsStyles}>
+            <Grid container spacing={2}>
+              <Grid item width="100%">
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={loading}
+                  fullWidth
+                >
+                  Сохранить
+                </Button>
+              </Grid>
               {onRemoveHandler && (
-                <Grid item>
+                <Grid item width="100%">
                   <Button
                     onClick={onOpenModalHandler}
                     variant="contained"
                     disabled={loading}
                     color="error"
+                    fullWidth
                   >
                     Удалить
                   </Button>
                 </Grid>
               )}
-              <Grid item>
-                <Button variant="contained" type="submit" disabled={loading}>
-                  Сохранить
-                </Button>
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </form>
+      </FormControl>
       <ModalConfirm
         open={showConfirmModal}
         confirmText={`Вы уверены, что хотите удалить программу "${name}"`}

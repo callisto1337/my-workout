@@ -1,6 +1,5 @@
 import { SxProps } from '@mui/material';
 
-export const actionsStyles: SxProps = {
-  display: 'flex',
-  justifyContent: 'flex-end',
+export const formStyles: SxProps = {
+  width: '100%',
 };
