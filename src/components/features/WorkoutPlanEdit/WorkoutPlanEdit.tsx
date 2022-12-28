@@ -1,11 +1,10 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import urlJoin from 'url-join';
 import { child, get, update, set } from 'firebase/database';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
-import { ModalRequestError } from 'components/common';
+import { ModalRequestError, CenteredSpinner } from 'components/common';
 import { WorkoutPlanForm } from 'components/features';
 import { WorkoutPlan } from 'types';
 
@@ -71,7 +70,7 @@ export function WorkoutPlanEdit(): JSX.Element {
   }, []);
 
   if (loading) {
-    return <CircularProgress />;
+    return <CenteredSpinner />;
   }
 
   return (

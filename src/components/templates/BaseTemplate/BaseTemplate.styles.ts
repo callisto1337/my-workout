@@ -1,6 +1,9 @@
 import { SxProps } from '@mui/material';
 
 export const containerStyles: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
   pb: 7,
 };
 
