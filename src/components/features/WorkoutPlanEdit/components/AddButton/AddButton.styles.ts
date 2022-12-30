@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/material';
 
-export const formStyles: SxProps = {
+export const alertStyles: SxProps = {
   width: '100%',
 };
