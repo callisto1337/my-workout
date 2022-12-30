@@ -3,6 +3,6 @@ export const ROUTES_TITLES = {
   AUTH: 'Авторизация',
   EXERCISE: 'Упражнение',
   SETTINGS: 'Настройки',
-  WORKOUT_PLANS: 'Программы тренировок',
+  WORKOUT_PLANS: 'Программы',
   WORKOUT_PLAN_EDIT: 'Редактирование',
 };

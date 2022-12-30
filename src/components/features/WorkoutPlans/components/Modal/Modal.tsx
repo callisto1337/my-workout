@@ -9,34 +9,34 @@ import {
   TextField,
   DialogProps,
 } from '@mui/material';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { FORM_ERRORS } from 'utils/constants';
 import { db } from 'services/firebase';
 import { SNAPSHOT_PATHS } from 'utils/constants';
+import { WorkoutPlan } from 'types';
 
 interface WorkoutPlansModalProps extends Pick<DialogProps, 'open'> {
   closeModal?: () => void;
 }
 
-interface IFormInputs {
-  workoutPlanName: string;
-}
+interface FormInputs extends Pick<WorkoutPlan, 'name'> {}
 
 export function WorkoutPlansModal(props: WorkoutPlansModalProps): JSX.Element {
   const { open, closeModal } = props;
 
-  const { handleSubmit, control } = useForm<IFormInputs>({
+  const { handleSubmit, control } = useForm<FormInputs>({
     defaultValues: {
-      workoutPlanName: '',
+      name: '',
     },
   });
-  function onSubmit({ workoutPlanName }: IFormInputs): void {
+  function onSubmit({ name }: FormInputs): void {
     const workoutPlanRef = ref(db, SNAPSHOT_PATHS.WORKOUT_PLANS);
     const newWorkoutPlanRef = push(workoutPlanRef);
 
     // TODO need finalize
     set(newWorkoutPlanRef, {
-      name: workoutPlanName,
+      name,
+      exercises: [],
     })
       .then((snapshot) => {
         console.log('snapshot: ', snapshot);
@@ -52,7 +52,7 @@ export function WorkoutPlansModal(props: WorkoutPlansModalProps): JSX.Element {
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
           <Controller
-            name="workoutPlanName"
+            name="name"
             control={control}
             rules={{ required: FORM_ERRORS.REQUIRED }}
             render={({ field, fieldState }) => {

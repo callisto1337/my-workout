@@ -1,19 +1,34 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
 import { child, get, update, set } from 'firebase/database';
+import { Box, Grid, Divider, Typography, Alert } from '@mui/material';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
-import { ModalRequestError, CenteredSpinner } from 'components/common';
-import { WorkoutPlanForm } from 'components/features';
-import { WorkoutPlan } from 'types';
+import { CenteredSpinner } from 'components/common';
+import { WorkoutExercise, WorkoutPlan } from 'types';
+import {
+  WorkoutPlanEditInput,
+  WorkoutPlanEditRemoveButton,
+  WorkoutPlanEditAddButton,
+} from './components';
+import { alertStyles, contentWrapperStyles } from './WorkoutPlanEdit.styles';
+
+/**
+ * 1. +++ обработка ошибок при обновлении программы тренировок
+ * 2. переименовать в WorkoutEdit
+ * 3. WorkoutPlanItemPage -> WorkoutEditPage
+ * 4. ModalRequestError переделать на Snackbar
+ * 5. вынести Snackbar
+ * 6. retry при неуспешном получении workout plan
+ * 7. возможно вынести Snackbar глобально
+ */
 
 export function WorkoutPlanEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
   const [loading, setLoading] = useState<boolean>();
-  const [showModal, setShowModal] = useState<boolean>();
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
   const workoutPlanPath = urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id);
 
   function getWorkoutPlan() {
@@ -26,23 +41,26 @@ export function WorkoutPlanEdit(): JSX.Element {
         }
       })
       .catch(() => {
-        setShowModal(true);
+        // TODO тут
       })
       .finally(() => {
         setLoading(false);
       });
   }
 
-  function updateWorkoutPlan(data: WorkoutPlan) {
+  function updateWorkoutPlan(plan: WorkoutPlan) {
+    setWorkoutPlan(plan);
+
     return update(dbRef, {
-      [workoutPlanPath]: data,
-    })
-      .then(() => {
-        navigate(ROUTES.WORKOUT_PLANS);
-      })
-      .catch(() => {
-        setShowModal(true);
-      });
+      [workoutPlanPath]: plan,
+    });
+  }
+
+  function updateWorkoutPlanName(name: string) {
+    return updateWorkoutPlan({
+      ...workoutPlan,
+      name,
+    });
   }
 
   function removeWorkoutPlan() {
@@ -61,8 +79,16 @@ export function WorkoutPlanEdit(): JSX.Element {
       });
   }
 
-  function onCloseModal() {
-    setShowModal(false);
+  function addExercise(newExercise: WorkoutExercise) {
+    const prevExercises = workoutPlan?.exercises || [];
+    const updatedWorkoutPlan = {
+      ...workoutPlan,
+      exercises: [...prevExercises, newExercise],
+    };
+
+    return updateWorkoutPlan(updatedWorkoutPlan).then(() => {
+      setWorkoutPlan(updatedWorkoutPlan);
+    });
   }
 
   useLayoutEffect(() => {
@@ -75,12 +101,42 @@ export function WorkoutPlanEdit(): JSX.Element {
 
   return (
     <>
-      <WorkoutPlanForm
-        name={workoutPlan?.name}
-        onSubmit={updateWorkoutPlan}
-        onRemove={removeWorkoutPlan}
-      />
-      <ModalRequestError open={showModal} onClose={onCloseModal} />
+      <Box sx={contentWrapperStyles}>
+        <Grid container spacing={2}>
+          <Grid item width="100%">
+            <WorkoutPlanEditInput
+              name={workoutPlan?.name}
+              onSubmit={updateWorkoutPlanName}
+            />
+          </Grid>
+          <Grid item width="100%">
+            <Typography variant="subtitle1">Упражнения</Typography>
+            {workoutPlan?.exercises?.length > 0 ? (
+              <ul>
+                {workoutPlan.exercises.map(({ name }, index) => {
+                  return <li key={index}>{name}</li>;
+                })}
+              </ul>
+            ) : (
+              <Alert severity="info" variant="outlined" sx={alertStyles}>
+                Нет добавленных упражнений
+              </Alert>
+            )}
+          </Grid>
+          <Grid item width="100%">
+            <WorkoutPlanEditAddButton onAdd={addExercise} />
+          </Grid>
+          <Grid item width="100%">
+            <Divider />
+          </Grid>
+          <Grid item width="100%">
+            <WorkoutPlanEditRemoveButton
+              onRemove={removeWorkoutPlan}
+              name={workoutPlan?.name}
+            />
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 }

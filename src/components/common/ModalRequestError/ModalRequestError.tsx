@@ -14,7 +14,7 @@ interface ModalRequestErrorProps extends Pick<DialogProps, 'open'> {
 }
 
 export function ModalRequestError(props: ModalRequestErrorProps): JSX.Element {
-  const { open = false, onClose } = props;
+  const { open, onClose } = props;
 
   return (
     <Dialog open={open} onClose={onClose}>
