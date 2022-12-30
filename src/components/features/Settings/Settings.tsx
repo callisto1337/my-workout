@@ -37,6 +37,7 @@ export function Settings(): JSX.Element {
         color="error"
         onClick={onClickHandler}
         disabled={loading}
+        fullWidth
       >
         Выйти
       </Button>
