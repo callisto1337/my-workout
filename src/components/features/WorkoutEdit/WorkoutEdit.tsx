@@ -8,23 +8,23 @@ import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
 import { CenteredSpinner } from 'components/common';
 import { WorkoutExercise, WorkoutPlan } from 'types';
 import {
-  WorkoutPlanEditInput,
-  WorkoutPlanEditRemoveButton,
-  WorkoutPlanEditAddButton,
+  WorkoutEditInput,
+  WorkoutEditRemoveButton,
+  WorkoutEditAddButton,
 } from './components';
-import { alertStyles, contentWrapperStyles } from './WorkoutPlanEdit.styles';
+import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
 
 /**
  * 1. +++ обработка ошибок при обновлении программы тренировок
- * 2. переименовать в WorkoutEdit
- * 3. WorkoutPlanItemPage -> WorkoutEditPage
+ * 2. +++ переименовать в WorkoutEdit
+ * 3. +++ WorkoutPlanItemPage -> WorkoutEditPage
  * 4. ModalRequestError переделать на Snackbar
  * 5. вынести Snackbar
  * 6. retry при неуспешном получении workout plan
  * 7. возможно вынести Snackbar глобально
  */
 
-export function WorkoutPlanEdit(): JSX.Element {
+export function WorkoutEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
   const [loading, setLoading] = useState<boolean>();
   const { id } = useParams();
@@ -104,7 +104,7 @@ export function WorkoutPlanEdit(): JSX.Element {
       <Box sx={contentWrapperStyles}>
         <Grid container spacing={2}>
           <Grid item width="100%">
-            <WorkoutPlanEditInput
+            <WorkoutEditInput
               name={workoutPlan?.name}
               onSubmit={updateWorkoutPlanName}
             />
@@ -124,13 +124,13 @@ export function WorkoutPlanEdit(): JSX.Element {
             )}
           </Grid>
           <Grid item width="100%">
-            <WorkoutPlanEditAddButton onAdd={addExercise} />
+            <WorkoutEditAddButton onAdd={addExercise} />
           </Grid>
           <Grid item width="100%">
             <Divider />
           </Grid>
           <Grid item width="100%">
-            <WorkoutPlanEditRemoveButton
+            <WorkoutEditRemoveButton
               onRemove={removeWorkoutPlan}
               name={workoutPlan?.name}
             />

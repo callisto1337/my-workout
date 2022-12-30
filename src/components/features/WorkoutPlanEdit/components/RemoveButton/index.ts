@@ -1,1 +1,0 @@
-export { WorkoutPlanEditRemoveButton } from './RemoveButton';

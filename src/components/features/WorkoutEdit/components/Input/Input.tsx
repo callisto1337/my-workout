@@ -13,14 +13,12 @@ import {
   stackStyles,
 } from './Input.styles';
 
-interface WorkoutPlanEditInputProps {
+interface WorkoutEditInputProps {
   name: string;
   onSubmit: (name: WorkoutPlan['name']) => Promise<unknown>;
 }
 
-export function WorkoutPlanEditInput(
-  props: WorkoutPlanEditInputProps
-): JSX.Element {
+export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
   const { name, onSubmit } = props;
   const [showSuccessfulSnackbar, setShowSuccessfulSnackbar] =
     useState<boolean>(false);

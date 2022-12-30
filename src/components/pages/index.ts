@@ -3,4 +3,4 @@ export * from './ExercisePage';
 export * from './AuthPage';
 export * from './SettingsPage';
 export * from './WorkoutPlansPage';
-export * from './WorkoutPlanItemPage';
+export * from './WorkoutEditPage';

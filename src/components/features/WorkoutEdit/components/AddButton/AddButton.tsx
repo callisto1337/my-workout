@@ -15,12 +15,12 @@ import { FORM_ERRORS } from 'utils/constants';
 import { Snackbar } from 'components/common';
 import { alertStyles } from './AddButton.styles';
 
-interface WorkoutPlanEditAddButtonProps {
+interface WorkoutEditAddButtonProps {
   onAdd: (plan: WorkoutPlan) => Promise<unknown>;
 }
 
-export function WorkoutPlanEditAddButton(
-  props: WorkoutPlanEditAddButtonProps
+export function WorkoutEditAddButton(
+  props: WorkoutEditAddButtonProps
 ): JSX.Element {
   const { onAdd } = props;
   const [showModal, setShowModal] = useState<boolean>(false);

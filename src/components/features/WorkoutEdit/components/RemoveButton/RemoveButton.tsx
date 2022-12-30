@@ -3,13 +3,13 @@ import { Alert, Button } from '@mui/material';
 import { ModalConfirm, Snackbar } from 'components/common';
 import { alertStyles } from './RemoveButton.styles';
 
-interface WorkoutPlanEditRemoveButtonProps {
+interface WorkoutEditRemoveButtonProps {
   onRemove: () => Promise<unknown>;
   name: string;
 }
 
-export function WorkoutPlanEditRemoveButton(
-  props: WorkoutPlanEditRemoveButtonProps
+export function WorkoutEditRemoveButton(
+  props: WorkoutEditRemoveButtonProps
 ): JSX.Element {
   const { onRemove, name } = props;
   const [isRemoving, setIsRemoving] = useState<boolean>(false);
