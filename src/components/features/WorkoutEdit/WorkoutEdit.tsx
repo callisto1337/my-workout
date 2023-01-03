@@ -10,19 +10,9 @@ import { WorkoutExercise, WorkoutPlan } from 'types';
 import {
   WorkoutEditInput,
   WorkoutEditRemoveButton,
-  WorkoutEditAddButton,
+  WorkoutEditAddExerciseButton,
 } from './components';
 import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
-
-/**
- * 1. +++ обработка ошибок при обновлении программы тренировок
- * 2. +++ переименовать в WorkoutEdit
- * 3. +++ WorkoutPlanItemPage -> WorkoutEditPage
- * 4. ModalRequestError переделать на Snackbar
- * 5. +++ вынести Snackbar
- * 6. retry при неуспешном получении workout plan
- * 7. возможно вынести Snackbar глобально
- */
 
 export function WorkoutEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
@@ -124,7 +114,7 @@ export function WorkoutEdit(): JSX.Element {
             )}
           </Grid>
           <Grid item width="100%">
-            <WorkoutEditAddButton onAdd={addExercise} />
+            <WorkoutEditAddExerciseButton onAdd={addExercise} />
           </Grid>
           <Grid item width="100%">
             <Divider />

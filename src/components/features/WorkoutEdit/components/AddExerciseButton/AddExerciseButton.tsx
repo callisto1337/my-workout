@@ -14,18 +14,18 @@ import { WorkoutExercise, WorkoutPlan } from 'types';
 import { FORM_ERRORS } from 'utils/constants';
 import { Snackbar } from 'components/common';
 
-interface WorkoutEditAddButtonProps {
+interface WorkoutEditAddExerciseButtonProps {
   onAdd: (plan: WorkoutPlan) => Promise<unknown>;
 }
 
-export function WorkoutEditAddButton(
-  props: WorkoutEditAddButtonProps
+export function WorkoutEditAddExerciseButton(
+  props: WorkoutEditAddExerciseButtonProps
 ): JSX.Element {
   const { onAdd } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
   const [isAdding, setIsAdding] = useState<boolean>(false);
-  const { handleSubmit, control } = useForm<WorkoutExercise>({
+  const { handleSubmit, control, reset } = useForm<WorkoutExercise>({
     defaultValues: {
       name: '',
       category: '',
@@ -49,6 +49,9 @@ export function WorkoutEditAddButton(
     setIsAdding(true);
 
     onAdd?.(data)
+      .then(() => {
+        reset();
+      })
       .catch(() => {
         setShowFailedSnackbar(true);
       })
