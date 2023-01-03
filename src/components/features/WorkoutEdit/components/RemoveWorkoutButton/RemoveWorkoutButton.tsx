@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import { ModalConfirm, Snackbar } from 'components/common';
 
-interface WorkoutEditRemoveButtonProps {
+interface WorkoutEditRemoveWorkoutButtonProps {
   onRemove: () => Promise<unknown>;
   name: string;
 }
 
-export function WorkoutEditRemoveButton(
-  props: WorkoutEditRemoveButtonProps
+export function WorkoutEditRemoveWorkoutButton(
+  props: WorkoutEditRemoveWorkoutButtonProps
 ): JSX.Element {
   const { onRemove, name } = props;
   const [isRemoving, setIsRemoving] = useState<boolean>(false);
@@ -42,13 +42,7 @@ export function WorkoutEditRemoveButton(
 
   return (
     <>
-      <Button
-        onClick={showModal}
-        variant="contained"
-        disabled={isRemoving}
-        color="error"
-        fullWidth
-      >
+      <Button onClick={showModal} disabled={isRemoving} color="error" fullWidth>
         Удалить
       </Button>
       <ModalConfirm

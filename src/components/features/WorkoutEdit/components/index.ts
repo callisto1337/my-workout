@@ -1,3 +1,4 @@
 export * from './Input';
-export * from './RemoveButton';
+export * from './RemoveWorkoutButton';
 export * from './AddExerciseButton';
+export * from './ExercisesList';

@@ -62,7 +62,12 @@ export function WorkoutEditAddExerciseButton(
 
   return (
     <>
-      <Button fullWidth onClick={openModal} disabled={isAdding}>
+      <Button
+        fullWidth
+        onClick={openModal}
+        disabled={isAdding}
+        variant="contained"
+      >
         Добавить
       </Button>
       <Dialog open={showModal} onClose={closeModal}>

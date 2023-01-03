@@ -9,10 +9,14 @@ import { CenteredSpinner } from 'components/common';
 import { WorkoutExercise, WorkoutPlan } from 'types';
 import {
   WorkoutEditInput,
-  WorkoutEditRemoveButton,
+  WorkoutEditRemoveWorkoutButton,
   WorkoutEditAddExerciseButton,
+  WorkoutEditExercisesList,
 } from './components';
-import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
+import {
+  exercisesListStyles,
+  contentWrapperStyles,
+} from './WorkoutEdit.styles';
 
 export function WorkoutEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
@@ -28,6 +32,8 @@ export function WorkoutEdit(): JSX.Element {
       .then((snapshot) => {
         if (snapshot.exists()) {
           setWorkoutPlan(snapshot.val());
+        } else {
+          navigate(ROUTES.WORKOUT_PLANS);
         }
       })
       .catch(() => {
@@ -100,18 +106,11 @@ export function WorkoutEdit(): JSX.Element {
             />
           </Grid>
           <Grid item width="100%">
-            <Typography variant="subtitle1">Упражнения</Typography>
-            {workoutPlan?.exercises?.length > 0 ? (
-              <ul>
-                {workoutPlan.exercises.map(({ name }, index) => {
-                  return <li key={index}>{name}</li>;
-                })}
-              </ul>
-            ) : (
-              <Alert severity="info" variant="outlined" sx={alertStyles}>
-                Нет добавленных упражнений
-              </Alert>
-            )}
+            <Typography variant="h5">Упражнения</Typography>
+            <WorkoutEditExercisesList
+              sx={exercisesListStyles}
+              exercises={workoutPlan?.exercises}
+            />
           </Grid>
           <Grid item width="100%">
             <WorkoutEditAddExerciseButton onAdd={addExercise} />
@@ -120,7 +119,7 @@ export function WorkoutEdit(): JSX.Element {
             <Divider />
           </Grid>
           <Grid item width="100%">
-            <WorkoutEditRemoveButton
+            <WorkoutEditRemoveWorkoutButton
               onRemove={removeWorkoutPlan}
               name={workoutPlan?.name}
             />
