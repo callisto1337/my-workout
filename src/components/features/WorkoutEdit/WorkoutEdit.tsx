@@ -19,7 +19,7 @@ import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
  * 2. +++ переименовать в WorkoutEdit
  * 3. +++ WorkoutPlanItemPage -> WorkoutEditPage
  * 4. ModalRequestError переделать на Snackbar
- * 5. вынести Snackbar
+ * 5. +++ вынести Snackbar
  * 6. retry при неуспешном получении workout plan
  * 7. возможно вынести Snackbar глобально
  */

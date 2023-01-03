@@ -9,7 +9,6 @@ import {
   inputStyles,
   wrapperStyles,
   iconStyles,
-  alertStyles,
   stackStyles,
 } from './Input.styles';
 
@@ -86,24 +85,14 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
           open={showSuccessfulSnackbar}
           onClose={closeSuccessfulSnackbar}
         >
-          <Alert
-            onClose={closeSuccessfulSnackbar}
-            severity="success"
-            variant="outlined"
-            sx={alertStyles}
-          >
+          <Snackbar.Success onClose={closeSuccessfulSnackbar}>
             Название успешно изменено
-          </Alert>
+          </Snackbar.Success>
         </Snackbar>
         <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-          <Alert
-            onClose={closeFailedSnackbar}
-            severity="error"
-            variant="outlined"
-            sx={alertStyles}
-          >
+          <Snackbar.Error onClose={closeFailedSnackbar}>
             Ошибка изменения названия
-          </Alert>
+          </Snackbar.Error>
         </Snackbar>
       </Stack>
     </>

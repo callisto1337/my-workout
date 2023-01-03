@@ -13,7 +13,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { WorkoutExercise, WorkoutPlan } from 'types';
 import { FORM_ERRORS } from 'utils/constants';
 import { Snackbar } from 'components/common';
-import { alertStyles } from './AddButton.styles';
 
 interface WorkoutEditAddButtonProps {
   onAdd: (plan: WorkoutPlan) => Promise<unknown>;
@@ -118,14 +117,9 @@ export function WorkoutEditAddButton(
         </form>
       </Dialog>
       <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-        <Alert
-          onClose={closeFailedSnackbar}
-          severity="error"
-          variant="outlined"
-          sx={alertStyles}
-        >
-          Ошибка изменения названия
-        </Alert>
+        <Snackbar.Error onClose={closeFailedSnackbar}>
+          Ошибка добавления упражнения
+        </Snackbar.Error>
       </Snackbar>
     </>
   );

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { ModalConfirm, Snackbar } from 'components/common';
-import { alertStyles } from './RemoveButton.styles';
 
 interface WorkoutEditRemoveButtonProps {
   onRemove: () => Promise<unknown>;
@@ -59,14 +58,9 @@ export function WorkoutEditRemoveButton(
         onConfirm={onConfirmHandler}
       />
       <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-        <Alert
-          onClose={closeFailedSnackbar}
-          severity="error"
-          variant="outlined"
-          sx={alertStyles}
-        >
-          Ошибка изменения названия
-        </Alert>
+        <Snackbar.Error onClose={closeFailedSnackbar}>
+          Ошибка удаления программы
+        </Snackbar.Error>
       </Snackbar>
     </>
   );
