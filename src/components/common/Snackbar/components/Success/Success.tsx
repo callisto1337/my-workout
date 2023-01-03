@@ -9,12 +9,7 @@ export function SnackbarSuccess(props: SnackbarSuccessProps): JSX.Element {
   const { onClose, children = 'Действие прошло успешно' } = props;
 
   return (
-    <Alert
-      onClose={onClose}
-      severity="success"
-      variant="outlined"
-      sx={alertStyles}
-    >
+    <Alert onClose={onClose} severity="success" sx={alertStyles}>
       {children}
     </Alert>
   );

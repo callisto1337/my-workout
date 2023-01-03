@@ -12,5 +12,3 @@ export const inputStyles: SxProps = {
 export const iconStyles: SxProps = {
   marginLeft: 1,
 };
-
-export const stackStyles: SxProps = { mx: 1 };

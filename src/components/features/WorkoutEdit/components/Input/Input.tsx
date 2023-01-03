@@ -5,12 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { FORM_ERRORS } from 'utils/constants';
 import { WorkoutPlan } from 'types';
 import { Snackbar } from 'components/common';
-import {
-  inputStyles,
-  wrapperStyles,
-  iconStyles,
-  stackStyles,
-} from './Input.styles';
+import { inputStyles, wrapperStyles, iconStyles } from './Input.styles';
 
 interface WorkoutEditInputProps {
   name: string;
@@ -80,21 +75,16 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
           </IconButton>
         </Box>
       </form>
-      <Stack sx={stackStyles}>
-        <Snackbar
-          open={showSuccessfulSnackbar}
-          onClose={closeSuccessfulSnackbar}
-        >
-          <Snackbar.Success onClose={closeSuccessfulSnackbar}>
-            Название успешно изменено
-          </Snackbar.Success>
-        </Snackbar>
-        <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-          <Snackbar.Error onClose={closeFailedSnackbar}>
-            Ошибка изменения названия
-          </Snackbar.Error>
-        </Snackbar>
-      </Stack>
+      <Snackbar open={showSuccessfulSnackbar} onClose={closeSuccessfulSnackbar}>
+        <Snackbar.Success onClose={closeSuccessfulSnackbar}>
+          Название успешно изменено
+        </Snackbar.Success>
+      </Snackbar>
+      <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
+        <Snackbar.Error onClose={closeFailedSnackbar}>
+          Ошибка изменения названия
+        </Snackbar.Error>
+      </Snackbar>
     </>
   );
 }

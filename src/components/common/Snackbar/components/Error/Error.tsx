@@ -8,12 +8,7 @@ export function SnackbarError(props: SnackbarErrorProps): JSX.Element {
   const { onClose, children = 'Произошла ошибка' } = props;
 
   return (
-    <Alert
-      onClose={onClose}
-      severity="error"
-      variant="outlined"
-      sx={alertStyles}
-    >
+    <Alert onClose={onClose} severity="error" sx={alertStyles}>
       {children}
     </Alert>
   );

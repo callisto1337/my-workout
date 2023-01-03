@@ -3,17 +3,17 @@ import { Button, Box } from '@mui/material';
 import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 import GoogleIcon from '@mui/icons-material/Google';
 import { auth } from 'services/firebase';
-import { ModalRequestError } from 'components/common';
+import { Snackbar } from 'components/common';
 import { containerStyles } from './Auth.styles';
 
 const provider = new GoogleAuthProvider();
 
 export function Auth(): JSX.Element {
-  const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
+  const [showErrorSnackbar, setShowErrorSnackbar] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>();
 
-  function onCloseModal() {
-    setShowErrorModal(false);
+  function closeSnackbar() {
+    setShowErrorSnackbar(false);
   }
 
   function signInHandler() {
@@ -21,10 +21,10 @@ export function Auth(): JSX.Element {
 
     signInWithRedirect(auth, provider)
       .catch(() => {
-        setShowErrorModal(true);
+        setShowErrorSnackbar(true);
       })
       .finally(() => {
-        setLoading(false);
+        setShowErrorSnackbar(true);
       });
   }
 
@@ -41,7 +41,9 @@ export function Auth(): JSX.Element {
           Войти
         </Button>
       </Box>
-      <ModalRequestError open={showErrorModal} onClose={onCloseModal} />
+      <Snackbar open={showErrorSnackbar} onClose={closeSnackbar}>
+        <Snackbar.Error onClose={closeSnackbar} />
+      </Snackbar>
     </>
   );
 }
