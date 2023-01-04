@@ -19,7 +19,7 @@ export function WorkoutEditExercisesList(
           {exercises.map(({ name }, index) => {
             return (
               <ListItem disableGutters key={index}>
-                {name}
+                - {name}
               </ListItem>
             );
           })}

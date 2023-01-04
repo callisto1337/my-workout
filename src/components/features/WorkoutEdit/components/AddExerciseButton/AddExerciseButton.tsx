@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Alert,
+  Autocomplete,
   Button,
   Dialog,
   DialogActions,
@@ -96,26 +96,34 @@ export function WorkoutEditAddExerciseButton(
                   }}
                 />
               </Grid>
-              {/*<Grid item width="100%">*/}
-              {/*  <Controller*/}
-              {/*    name="category"*/}
-              {/*    control={control}*/}
-              {/*    rules={{ required: FORM_ERRORS.REQUIRED }}*/}
-              {/*    render={({ field, fieldState }) => {*/}
-              {/*      return (*/}
-              {/*        <TextField*/}
-              {/*          fullWidth*/}
-              {/*          autoComplete="off"*/}
-              {/*          variant="standard"*/}
-              {/*          label="Название"*/}
-              {/*          error={!!fieldState.error}*/}
-              {/*          helperText={fieldState.error?.message}*/}
-              {/*          {...field}*/}
-              {/*        />*/}
-              {/*      );*/}
-              {/*    }}*/}
-              {/*  />*/}
-              {/*</Grid>*/}
+              <Grid item width="100%">
+                <Controller
+                  name="category"
+                  control={control}
+                  rules={{ required: FORM_ERRORS.REQUIRED }}
+                  render={({ field: { onChange }, fieldState }) => {
+                    return (
+                      <Autocomplete
+                        onChange={(event, item) => {
+                          onChange(item);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Категория"
+                            variant="standard"
+                            autoComplete="off"
+                            error={!!fieldState.error}
+                            helperText={fieldState.error?.message}
+                          />
+                        )}
+                        options={categories}
+                        fullWidth
+                      />
+                    );
+                  }}
+                />
+              </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
@@ -132,3 +140,6 @@ export function WorkoutEditAddExerciseButton(
     </>
   );
 }
+
+// TODO temporary
+const categories = ['Грудь/Бицепс', 'Спина/Трицепс', 'Плечи/Ноги'];
