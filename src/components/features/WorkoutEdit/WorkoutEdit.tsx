@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
 import { child, get, update, set } from 'firebase/database';
-import { Box, Grid, Divider, Typography, Alert } from '@mui/material';
+import { Box, Grid, Divider, Typography } from '@mui/material';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
 import { CenteredSpinner } from 'components/common';

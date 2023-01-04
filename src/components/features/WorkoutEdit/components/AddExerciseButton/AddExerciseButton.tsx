@@ -100,8 +100,7 @@ export function WorkoutEditAddExerciseButton(
                 <Controller
                   name="category"
                   control={control}
-                  rules={{ required: FORM_ERRORS.REQUIRED }}
-                  render={({ field: { onChange }, fieldState }) => {
+                  render={({ field: { onChange } }) => {
                     return (
                       <Autocomplete
                         onChange={(event, item) => {
@@ -113,8 +112,6 @@ export function WorkoutEditAddExerciseButton(
                             label="Категория"
                             variant="standard"
                             autoComplete="off"
-                            error={!!fieldState.error}
-                            helperText={fieldState.error?.message}
                           />
                         )}
                         options={categories}
