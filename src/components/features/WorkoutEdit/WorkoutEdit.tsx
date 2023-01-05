@@ -1,32 +1,30 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
+import isEmpty from 'lodash/isEmpty';
 import { child, get, update, set } from 'firebase/database';
-import { Box, Grid, Divider, Typography } from '@mui/material';
+import { Box, Grid, Divider, Typography, Alert } from '@mui/material';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
 import { CenteredSpinner } from 'components/common';
+import { ExercisesList } from 'components/features';
 import { WorkoutExercise, WorkoutPlan } from 'types';
 import {
   WorkoutEditInput,
   WorkoutEditRemoveWorkoutButton,
   WorkoutEditAddExerciseButton,
-  WorkoutEditExercisesList,
 } from './components';
-import {
-  exercisesListStyles,
-  contentWrapperStyles,
-} from './WorkoutEdit.styles';
+import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
 
 export function WorkoutEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
-  const [loading, setLoading] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const { id } = useParams();
   const navigate = useNavigate();
   const workoutPlanPath = urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id);
 
   function getWorkoutPlan() {
-    setLoading(true);
+    setIsLoading(true);
 
     get(child(dbRef, workoutPlanPath))
       .then((snapshot) => {
@@ -40,7 +38,7 @@ export function WorkoutEdit(): JSX.Element {
         // TODO тут
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   }
 
@@ -87,11 +85,21 @@ export function WorkoutEdit(): JSX.Element {
     });
   }
 
+  function removeExercise(id: number) {
+    const newWorkoutPlan = { ...workoutPlan };
+
+    newWorkoutPlan.exercises.splice(id, 1);
+
+    return updateWorkoutPlan(newWorkoutPlan).then(() => {
+      setWorkoutPlan(newWorkoutPlan);
+    });
+  }
+
   useLayoutEffect(() => {
     getWorkoutPlan();
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return <CenteredSpinner />;
   }
 
@@ -107,10 +115,17 @@ export function WorkoutEdit(): JSX.Element {
           </Grid>
           <Grid item width="100%">
             <Typography variant="h5">Упражнения</Typography>
-            <WorkoutEditExercisesList
-              sx={exercisesListStyles}
-              exercises={workoutPlan?.exercises}
-            />
+            {isEmpty(workoutPlan?.exercises) ? (
+              <Alert severity="info" variant="outlined" sx={alertStyles}>
+                Нет добавленных упражнений
+              </Alert>
+            ) : (
+              <ExercisesList
+                exercises={workoutPlan?.exercises}
+                onRemove={removeExercise}
+                canRemove
+              />
+            )}
           </Grid>
           <Grid item width="100%">
             <WorkoutEditAddExerciseButton onAdd={addExercise} />

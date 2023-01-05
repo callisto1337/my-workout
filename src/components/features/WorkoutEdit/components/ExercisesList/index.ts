@@ -1,1 +1,0 @@
-export { WorkoutEditExercisesList } from './ExercisesList';
