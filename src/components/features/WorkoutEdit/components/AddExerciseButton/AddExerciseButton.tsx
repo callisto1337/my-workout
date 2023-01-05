@@ -24,7 +24,6 @@ export function WorkoutEditAddExerciseButton(
   const { onAdd } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
-  const [isAdding, setIsAdding] = useState<boolean>(false);
   const { handleSubmit, control, reset } = useForm<WorkoutExercise>({
     defaultValues: {
       name: '',
@@ -46,7 +45,6 @@ export function WorkoutEditAddExerciseButton(
 
   function onSubmit(data: WorkoutPlan) {
     closeModal();
-    setIsAdding(true);
 
     onAdd?.(data)
       .then(() => {
@@ -54,20 +52,12 @@ export function WorkoutEditAddExerciseButton(
       })
       .catch(() => {
         setShowFailedSnackbar(true);
-      })
-      .finally(() => {
-        setIsAdding(false);
       });
   }
 
   return (
     <>
-      <Button
-        fullWidth
-        onClick={openModal}
-        disabled={isAdding}
-        variant="contained"
-      >
+      <Button fullWidth onClick={openModal} variant="contained">
         Добавить
       </Button>
       <Dialog open={showModal} onClose={closeModal}>

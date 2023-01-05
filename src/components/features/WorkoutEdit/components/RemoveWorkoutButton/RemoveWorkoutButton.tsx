@@ -11,7 +11,6 @@ export function WorkoutEditRemoveWorkoutButton(
   props: WorkoutEditRemoveWorkoutButtonProps
 ): JSX.Element {
   const { onRemove, name } = props;
-  const [isRemoving, setIsRemoving] = useState<boolean>(false);
   const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>();
 
@@ -29,21 +28,16 @@ export function WorkoutEditRemoveWorkoutButton(
 
   function onConfirmHandler() {
     closeModal();
-    setIsRemoving(true);
 
-    onRemove?.()
-      .catch(() => {
-        setShowFailedSnackbar(true);
-      })
-      .finally(() => {
-        setIsRemoving(false);
-      });
+    onRemove?.().catch(() => {
+      setShowFailedSnackbar(true);
+    });
   }
 
   return (
     <>
-      <Button onClick={showModal} disabled={isRemoving} color="error" fullWidth>
-        Удалить
+      <Button onClick={showModal} color="error" fullWidth>
+        Удалить программу
       </Button>
       <ModalConfirm
         open={showConfirmModal}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconButton, TextField, Box, Stack, Alert } from '@mui/material';
+import { IconButton, TextField, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import SaveIcon from '@mui/icons-material/Save';
 import { FORM_ERRORS } from 'utils/constants';
@@ -17,7 +17,6 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
   const [showSuccessfulSnackbar, setShowSuccessfulSnackbar] =
     useState<boolean>(false);
   const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>();
   const { handleSubmit, control } = useForm<WorkoutPlan>({
     defaultValues: {
       name,
@@ -25,17 +24,12 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
   });
 
   function onSubmitHandler(data: Pick<WorkoutPlan, 'name'>) {
-    setLoading(true);
-
     onSubmit(data.name)
       .then(() => {
         setShowSuccessfulSnackbar(true);
       })
       .catch(() => {
         setShowFailedSnackbar(true);
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }
 
@@ -64,13 +58,12 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
                   label="Название"
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
-                  disabled={loading}
                   {...field}
                 />
               );
             }}
           />
-          <IconButton sx={iconStyles} type="submit" disabled={loading}>
+          <IconButton sx={iconStyles} type="submit">
             <SaveIcon />
           </IconButton>
         </Box>

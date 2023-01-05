@@ -8,7 +8,6 @@ import { ROUTES } from 'utils/constants';
 
 export function Settings(): JSX.Element {
   const [showErrorSnackbar, setShowErrorSnackbar] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>();
   const navigate = useNavigate();
 
   function closeSnackbar() {
@@ -16,17 +15,12 @@ export function Settings(): JSX.Element {
   }
 
   function onClickHandler() {
-    setLoading(true);
-
     signOut(auth)
       .then(() => {
         navigate(ROUTES.AUTH);
       })
       .catch(() => {
         setShowErrorSnackbar(true);
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }
 
@@ -36,7 +30,6 @@ export function Settings(): JSX.Element {
         variant="contained"
         color="error"
         onClick={onClickHandler}
-        disabled={loading}
         fullWidth
       >
         Выйти
