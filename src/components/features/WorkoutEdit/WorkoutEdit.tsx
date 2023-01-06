@@ -122,7 +122,7 @@ export function WorkoutEdit(): JSX.Element {
             />
           </Grid>
           <Grid item width="100%">
-            <Typography variant="h5">Упражнения</Typography>
+            <Typography variant="h6">Упражнения</Typography>
             {isEmpty(workoutPlan?.exercises) ? (
               <Alert severity="info" variant="outlined" sx={alertStyles}>
                 Нет добавленных упражнений

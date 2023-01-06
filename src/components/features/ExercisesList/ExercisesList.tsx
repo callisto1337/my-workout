@@ -10,8 +10,10 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { WorkoutExercise, ExerciseCategory } from 'types';
-import { Snackbar } from 'components/common';
 import { getCategories } from 'utils/methods';
+import { Snackbar } from 'components/common';
+import { ExerciseEdit } from 'components/features';
+import { ExercisesListDialog } from './components';
 
 interface WorkoutEditExercisesListProps {
   exercises?: WorkoutExercise[];
@@ -25,6 +27,8 @@ export function ExercisesList(
 ): JSX.Element {
   const { exercises, sx, canRemove, onRemove } = props;
   const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
+  const [isExerciseEditModalShown, setIsExerciseEditModalShown] =
     useState<boolean>(false);
   const exercisesByCategories = exercises?.reduce<
     Record<ExerciseCategory, Record<number, WorkoutExercise>>
@@ -46,6 +50,14 @@ export function ExercisesList(
 
   function showFailedSnackbar() {
     setIsFailedSnackbarShown(true);
+  }
+
+  function showExerciseEditModal() {
+    setIsExerciseEditModalShown(true);
+  }
+
+  function hideExerciseEditModal() {
+    setIsExerciseEditModalShown(false);
   }
 
   function onClickHandler(id: number, name: string) {
@@ -87,6 +99,8 @@ export function ExercisesList(
                           </IconButton>
                         )
                       }
+                      button
+                      onClick={showExerciseEditModal}
                     >
                       - {name}
                     </ListItem>
@@ -102,6 +116,12 @@ export function ExercisesList(
           Ошибка удаления упражнения
         </Snackbar.Error>
       </Snackbar>
+      <ExercisesListDialog
+        open={isExerciseEditModalShown}
+        onClose={hideExerciseEditModal}
+      >
+        <ExerciseEdit />
+      </ExercisesListDialog>
     </>
   );
 }

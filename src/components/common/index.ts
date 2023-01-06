@@ -5,3 +5,5 @@ export * from './Breadcrumbs';
 export * from './CenteredSpinner';
 export * from './Snackbar';
 export * from './ModalConfirm';
+export * from './Transition';
+export * from './Dialog';

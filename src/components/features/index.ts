@@ -6,3 +6,4 @@ export * from './Auth';
 export * from './Exercise';
 export * from './WorkoutEdit';
 export * from './ExercisesList';
+export * from './ExerciseEdit';
