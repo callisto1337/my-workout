@@ -23,8 +23,9 @@ export function WorkoutEditAddExerciseButton(
   props: WorkoutEditAddExerciseButtonProps
 ): JSX.Element {
   const { onAdd, categories } = props;
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
+  const [isModalShown, setIsModalShown] = useState<boolean>(false);
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
   const { handleSubmit, control, reset } = useForm<WorkoutExercise>({
     defaultValues: {
       name: '',
@@ -32,36 +33,36 @@ export function WorkoutEditAddExerciseButton(
     },
   });
 
-  function openModal() {
-    setShowModal(true);
+  function showModal() {
+    setIsModalShown(true);
   }
 
-  function closeModal() {
-    setShowModal(false);
+  function hideModal() {
+    setIsModalShown(false);
   }
 
-  function closeFailedSnackbar() {
-    setShowFailedSnackbar(false);
+  function hideFailedSnackbar() {
+    setIsFailedSnackbarShown(false);
   }
 
   function onSubmit(data: WorkoutPlan) {
-    closeModal();
+    hideModal();
 
     onAdd?.(data)
       .then(() => {
         reset();
       })
       .catch(() => {
-        setShowFailedSnackbar(true);
+        setIsFailedSnackbarShown(true);
       });
   }
 
   return (
     <>
-      <Button fullWidth onClick={openModal} variant="contained">
+      <Button fullWidth onClick={showModal} variant="contained">
         Добавить
       </Button>
-      <Dialog open={showModal} onClose={closeModal}>
+      <Dialog open={isModalShown} onClose={hideModal}>
         <DialogTitle>Добавить упражнение</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
@@ -119,13 +120,13 @@ export function WorkoutEditAddExerciseButton(
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={closeModal}>Отменить</Button>
+            <Button onClick={hideModal}>Отменить</Button>
             <Button type="submit">Добавить</Button>
           </DialogActions>
         </form>
       </Dialog>
-      <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-        <Snackbar.Error onClose={closeFailedSnackbar}>
+      <Snackbar open={isFailedSnackbarShown} onClose={hideFailedSnackbar}>
+        <Snackbar.Error onClose={hideFailedSnackbar}>
           Ошибка добавления упражнения
         </Snackbar.Error>
       </Snackbar>

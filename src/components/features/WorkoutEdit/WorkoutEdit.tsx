@@ -6,7 +6,7 @@ import { child, get, update, set } from 'firebase/database';
 import { Box, Grid, Divider, Typography, Alert } from '@mui/material';
 import { dbRef } from 'services/firebase';
 import { ROUTES, SNAPSHOT_PATHS } from 'utils/constants';
-import { CenteredSpinner } from 'components/common';
+import { CenteredSpinner, Snackbar } from 'components/common';
 import { ExercisesList } from 'components/features';
 import { WorkoutExercise, WorkoutPlan } from 'types';
 import {
@@ -19,6 +19,8 @@ import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
 
 export function WorkoutEdit(): JSX.Element {
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan>();
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,8 +38,8 @@ export function WorkoutEdit(): JSX.Element {
           navigate(ROUTES.WORKOUT_PLANS);
         }
       })
-      .catch(() => {
-        // TODO тут
+      .then(() => {
+        setIsFailedSnackbarShown(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -97,6 +99,10 @@ export function WorkoutEdit(): JSX.Element {
     });
   }
 
+  function hideFailedSnackbar() {
+    setIsFailedSnackbarShown(false);
+  }
+
   useLayoutEffect(() => {
     getWorkoutPlan();
   }, []);
@@ -146,6 +152,9 @@ export function WorkoutEdit(): JSX.Element {
           </Grid>
         </Grid>
       </Box>
+      <Snackbar open={isFailedSnackbarShown} onClose={hideFailedSnackbar}>
+        <Snackbar.Error onClose={hideFailedSnackbar} />
+      </Snackbar>
     </>
   );
 }

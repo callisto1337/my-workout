@@ -14,9 +14,10 @@ interface WorkoutEditInputProps {
 
 export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
   const { name, onSubmit } = props;
-  const [showSuccessfulSnackbar, setShowSuccessfulSnackbar] =
+  const [isSuccessfulSnackbarShown, setIsSuccessfulSnackbarShown] =
     useState<boolean>(false);
-  const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
   const { handleSubmit, control } = useForm<WorkoutPlan>({
     defaultValues: {
       name,
@@ -26,19 +27,19 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
   function onSubmitHandler(data: Pick<WorkoutPlan, 'name'>) {
     onSubmit(data.name)
       .then(() => {
-        setShowSuccessfulSnackbar(true);
+        setIsSuccessfulSnackbarShown(true);
       })
       .catch(() => {
-        setShowFailedSnackbar(true);
+        setIsFailedSnackbarShown(true);
       });
   }
 
-  function closeSuccessfulSnackbar() {
-    setShowSuccessfulSnackbar(false);
+  function hideSuccessfulSnackbar() {
+    setIsSuccessfulSnackbarShown(false);
   }
 
-  function closeFailedSnackbar() {
-    setShowFailedSnackbar(false);
+  function hideFailedSnackbar() {
+    setIsFailedSnackbarShown(false);
   }
 
   return (
@@ -68,13 +69,16 @@ export function WorkoutEditInput(props: WorkoutEditInputProps): JSX.Element {
           </IconButton>
         </Box>
       </form>
-      <Snackbar open={showSuccessfulSnackbar} onClose={closeSuccessfulSnackbar}>
-        <Snackbar.Success onClose={closeSuccessfulSnackbar}>
+      <Snackbar
+        open={isSuccessfulSnackbarShown}
+        onClose={hideSuccessfulSnackbar}
+      >
+        <Snackbar.Success onClose={hideSuccessfulSnackbar}>
           Название успешно изменено
         </Snackbar.Success>
       </Snackbar>
-      <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-        <Snackbar.Error onClose={closeFailedSnackbar}>
+      <Snackbar open={isFailedSnackbarShown} onClose={hideFailedSnackbar}>
+        <Snackbar.Error onClose={hideFailedSnackbar}>
           Ошибка изменения названия
         </Snackbar.Error>
       </Snackbar>

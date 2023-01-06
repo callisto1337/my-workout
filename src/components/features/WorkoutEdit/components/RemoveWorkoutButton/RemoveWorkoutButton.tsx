@@ -11,26 +11,27 @@ export function WorkoutEditRemoveWorkoutButton(
   props: WorkoutEditRemoveWorkoutButtonProps
 ): JSX.Element {
   const { onRemove, name } = props;
-  const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
-  const [showConfirmModal, setShowConfirmModal] = useState<boolean>();
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
+  const [isConfirmModalShown, setIsConfirmModalShown] = useState<boolean>();
 
-  function closeModal() {
-    setShowConfirmModal(false);
+  function hideModal() {
+    setIsConfirmModalShown(false);
   }
 
   function showModal() {
-    setShowConfirmModal(true);
+    setIsConfirmModalShown(true);
   }
 
-  function closeFailedSnackbar() {
-    setShowFailedSnackbar(false);
+  function hideFailedSnackbar() {
+    setIsFailedSnackbarShown(false);
   }
 
   function onConfirmHandler() {
-    closeModal();
+    hideModal();
 
     onRemove?.().catch(() => {
-      setShowFailedSnackbar(true);
+      setIsFailedSnackbarShown(true);
     });
   }
 
@@ -40,13 +41,13 @@ export function WorkoutEditRemoveWorkoutButton(
         Удалить программу
       </Button>
       <ModalConfirm
-        open={showConfirmModal}
+        open={isConfirmModalShown}
         confirmText={`Вы уверены, что хотите удалить программу "${name}"?`}
-        onClose={closeModal}
+        onClose={hideModal}
         onConfirm={onConfirmHandler}
       />
-      <Snackbar open={showFailedSnackbar} onClose={closeFailedSnackbar}>
-        <Snackbar.Error onClose={closeFailedSnackbar}>
+      <Snackbar open={isFailedSnackbarShown} onClose={hideFailedSnackbar}>
+        <Snackbar.Error onClose={hideFailedSnackbar}>
           Ошибка удаления программы
         </Snackbar.Error>
       </Snackbar>

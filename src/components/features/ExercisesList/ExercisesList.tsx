@@ -24,7 +24,7 @@ export function ExercisesList(
   props: WorkoutEditExercisesListProps
 ): JSX.Element {
   const { exercises, sx, canRemove, onRemove } = props;
-  const [isFailedSnackbarVisible, setIsFailedSnackbarVisible] =
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
     useState<boolean>(false);
   const exercisesByCategories = exercises?.reduce<
     Record<ExerciseCategory, Record<number, WorkoutExercise>>
@@ -41,11 +41,11 @@ export function ExercisesList(
   const categoriesList = getCategories(exercises).sort().reverse();
 
   function hideFailedSnackbar() {
-    setIsFailedSnackbarVisible(false);
+    setIsFailedSnackbarShown(false);
   }
 
   function showFailedSnackbar() {
-    setIsFailedSnackbarVisible(true);
+    setIsFailedSnackbarShown(true);
   }
 
   function onClickHandler(id: number, name: string) {
@@ -97,7 +97,7 @@ export function ExercisesList(
           );
         })}
       </Box>
-      <Snackbar open={isFailedSnackbarVisible} onClose={hideFailedSnackbar}>
+      <Snackbar open={isFailedSnackbarShown} onClose={hideFailedSnackbar}>
         <Snackbar.Error onClose={hideFailedSnackbar}>
           Ошибка удаления упражнения
         </Snackbar.Error>

@@ -9,20 +9,17 @@ import { containerStyles } from './Auth.styles';
 const provider = new GoogleAuthProvider();
 
 export function Auth(): JSX.Element {
-  const [showErrorSnackbar, setShowErrorSnackbar] = useState<boolean>(false);
+  const [isFailedSnackbarShown, setIsFailedSnackbarShown] =
+    useState<boolean>(false);
 
-  function closeSnackbar() {
-    setShowErrorSnackbar(false);
+  function hideSnackbar() {
+    setIsFailedSnackbarShown(false);
   }
 
   function signInHandler() {
-    signInWithRedirect(auth, provider)
-      .catch(() => {
-        setShowErrorSnackbar(true);
-      })
-      .finally(() => {
-        setShowErrorSnackbar(true);
-      });
+    signInWithRedirect(auth, provider).catch(() => {
+      setIsFailedSnackbarShown(true);
+    });
   }
 
   return (
@@ -37,8 +34,8 @@ export function Auth(): JSX.Element {
           Войти
         </Button>
       </Box>
-      <Snackbar open={showErrorSnackbar} onClose={closeSnackbar}>
-        <Snackbar.Error onClose={closeSnackbar} />
+      <Snackbar open={isFailedSnackbarShown} onClose={hideSnackbar}>
+        <Snackbar.Error onClose={hideSnackbar} />
       </Snackbar>
     </>
   );
