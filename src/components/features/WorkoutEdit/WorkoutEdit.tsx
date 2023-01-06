@@ -38,7 +38,7 @@ export function WorkoutEdit(): JSX.Element {
           navigate(ROUTES.WORKOUT_PLANS);
         }
       })
-      .then(() => {
+      .catch(() => {
         setIsFailedSnackbarShown(true);
       })
       .finally(() => {
