@@ -10,24 +10,25 @@ import {
   TextField,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import { WorkoutExercise, WorkoutPlan } from 'types';
+import { ExerciseCategory, WorkoutExercise, WorkoutPlan } from 'types';
 import { FORM_ERRORS } from 'utils/constants';
 import { Snackbar } from 'components/common';
 
 interface WorkoutEditAddExerciseButtonProps {
   onAdd: (plan: WorkoutPlan) => Promise<unknown>;
+  categories?: ExerciseCategory[];
 }
 
 export function WorkoutEditAddExerciseButton(
   props: WorkoutEditAddExerciseButtonProps
 ): JSX.Element {
-  const { onAdd } = props;
+  const { onAdd, categories } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showFailedSnackbar, setShowFailedSnackbar] = useState<boolean>(false);
   const { handleSubmit, control, reset } = useForm<WorkoutExercise>({
     defaultValues: {
       name: '',
-      category: '',
+      category: null,
     },
   });
 
@@ -90,10 +91,13 @@ export function WorkoutEditAddExerciseButton(
                 <Controller
                   name="category"
                   control={control}
-                  render={({ field: { onChange } }) => {
+                  render={({ field: { onChange, value, ...props } }) => {
                     return (
                       <Autocomplete
                         onChange={(event, item) => {
+                          onChange(item);
+                        }}
+                        onInputChange={(event, item) => {
                           onChange(item);
                         }}
                         renderInput={(params) => (
@@ -101,11 +105,12 @@ export function WorkoutEditAddExerciseButton(
                             {...params}
                             label="Категория"
                             variant="standard"
-                            autoComplete="off"
                           />
                         )}
                         options={categories}
                         fullWidth
+                        freeSolo
+                        {...props}
                       />
                     );
                   }}
@@ -127,6 +132,3 @@ export function WorkoutEditAddExerciseButton(
     </>
   );
 }
-
-// TODO temporary
-const categories = ['Грудь/Бицепс', 'Спина/Трицепс', 'Плечи/Ноги'];

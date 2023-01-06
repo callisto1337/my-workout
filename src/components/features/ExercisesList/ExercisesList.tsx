@@ -9,8 +9,9 @@ import {
   IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { WorkoutExercise } from 'types';
+import { WorkoutExercise, ExerciseCategory } from 'types';
 import { Snackbar } from 'components/common';
+import { getCategories } from 'utils/methods';
 
 interface WorkoutEditExercisesListProps {
   exercises?: WorkoutExercise[];
@@ -26,7 +27,7 @@ export function ExercisesList(
   const [isFailedSnackbarVisible, setIsFailedSnackbarVisible] =
     useState<boolean>(false);
   const exercisesByCategories = exercises?.reduce<
-    Record<WorkoutExercise['category'], Record<number, WorkoutExercise>>
+    Record<ExerciseCategory, Record<number, WorkoutExercise>>
   >((accum, exercise, index) => {
     const { category } = exercise;
     const prevExercises = {
@@ -37,9 +38,7 @@ export function ExercisesList(
 
     return accum;
   }, {});
-  const categoriesList = Object.keys(exercisesByCategories || [])
-    .sort()
-    .reverse();
+  const categoriesList = getCategories(exercises).sort().reverse();
 
   function hideFailedSnackbar() {
     setIsFailedSnackbarVisible(false);
@@ -66,7 +65,7 @@ export function ExercisesList(
           const exercises = exercisesByCategories[category];
 
           return (
-            <React.Fragment key={category}>
+            <React.Fragment key={category + index}>
               {index > 0 && <Divider />}
               <List
                 subheader={

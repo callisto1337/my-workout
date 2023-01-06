@@ -14,6 +14,7 @@ import {
   WorkoutEditRemoveWorkoutButton,
   WorkoutEditAddExerciseButton,
 } from './components';
+import { getCategories } from 'utils/methods';
 import { alertStyles, contentWrapperStyles } from './WorkoutEdit.styles';
 
 export function WorkoutEdit(): JSX.Element {
@@ -22,6 +23,7 @@ export function WorkoutEdit(): JSX.Element {
   const { id } = useParams();
   const navigate = useNavigate();
   const workoutPlanPath = urlJoin(SNAPSHOT_PATHS.WORKOUT_PLANS, id);
+  const exercisesCategories = getCategories(workoutPlan?.exercises);
 
   function getWorkoutPlan() {
     setIsLoading(true);
@@ -128,7 +130,10 @@ export function WorkoutEdit(): JSX.Element {
             )}
           </Grid>
           <Grid item width="100%">
-            <WorkoutEditAddExerciseButton onAdd={addExercise} />
+            <WorkoutEditAddExerciseButton
+              onAdd={addExercise}
+              categories={exercisesCategories}
+            />
           </Grid>
           <Grid item width="100%">
             <Divider />

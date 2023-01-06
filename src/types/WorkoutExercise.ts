@@ -1,4 +1,6 @@
+import { ExerciseCategory } from './';
+
 export interface WorkoutExercise {
   name: string;
-  category?: string;
+  category?: ExerciseCategory;
 }
